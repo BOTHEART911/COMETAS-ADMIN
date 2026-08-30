@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Registros · Cometas XVII</title>
+<meta name="theme-color" content="#025A2F">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== Loader ===== -->
+<div id="loader" class="loader" role="status">
+  <svg class="loader-kite" viewBox="0 0 120 220" aria-hidden="true">
+    <path class="hilo" d="M60 96 C 40 130, 80 150, 60 186 C 44 208, 70 214, 62 218" fill="none"/>
+    <g class="cometa">
+      <polygon points="60,8 104,52 60,96 16,52" fill="var(--sol)"/>
+      <polygon points="60,8 104,52 60,96" fill="var(--coral)"/>
+      <polygon points="60,8 16,52 60,96" fill="var(--agua)"/>
+      <path d="M60 8 V96 M16 52 H104" stroke="rgba(255,255,255,.85)" stroke-width="2"/>
+    </g>
+  </svg>
+  <p class="loader-txt">Tomando viento…</p>
+</div>
+
+<!-- ===== Entrada por PIN ===== -->
+<section id="puerta" class="puerta" hidden>
+  <div class="tarjeta puerta-caja">
+    <p class="eyebrow">Alcaldía de Flandes</p>
+    <h1>Registros del festival</h1>
+    <p class="puerta-txt">Escribe el PIN para administrar las inscripciones.</p>
+    <input id="inPin" inputmode="numeric" maxlength="8" placeholder="PIN" autocomplete="off">
+    <p class="error" id="errPin" hidden></p>
+    <button class="btn btn-primario" id="btnEntrar">Entrar</button>
+  </div>
+</section>
+
+<!-- ===== Aplicación ===== -->
+<main id="app" hidden>
+
+  <header class="barra">
+    <div>
+      <p class="eyebrow" id="tituloEvento">FESTIVAL DE COMETAS XVII</p>
+      <h1>Registros</h1>
+    </div>
+    <div class="barra-btns">
+      <button class="icono" id="btnRefrescar" title="Actualizar" aria-label="Actualizar">⟳</button>
+      <button class="icono" id="btnSalir" title="Salir" aria-label="Salir">⏻</button>
+    </div>
+  </header>
+
+  <section class="resumen">
+    <button class="dato" data-filtro="TODOS"><b id="nTotal">0</b><span>Total</span></button>
+    <button class="dato" data-filtro="INSCRITO"><b id="nInscritos">0</b><span>Inscritos</span></button>
+    <button class="dato" data-filtro="ACTIVO"><b id="nActivos">0</b><span>Activos</span></button>
+    <button class="dato" data-filtro="GANADOR"><b id="nGanadores">0</b><span>Ganadores</span></button>
+  </section>
+
+  <div class="acciones">
+    <button class="btn btn-primario" id="btnNuevo">Registrar el día del evento</button>
+    <button class="btn btn-suave" id="btnPdf">Descargar PDF</button>
+  </div>
+
+  <div class="buscador">
+    <input id="inBuscar" placeholder="Buscar por nombre, documento o categoría" autocomplete="off">
+  </div>
+
+  <div class="filtros" id="filtros"></div>
+
+  <p class="conteo" id="conteoVista">—</p>
+  <div id="lista" class="lista"></div>
+  <div id="vacio" class="vacio" hidden>
+    <svg viewBox="0 0 120 120" aria-hidden="true"><polygon points="60,10 100,50 60,90 20,50" fill="var(--sol)"/><polygon points="60,10 100,50 60,90" fill="var(--coral)"/></svg>
+    <p id="vacioTxt">Todavía no hay registros.</p>
+  </div>
+
+  <footer class="pie">
+    <span>Secretaría de Educación, Desarrollo Económico y Social</span>
+    <span class="ver" id="verApp"></span>
+  </footer>
+</main>
+
+<!-- ===== Modal genérico ===== -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-caja" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <button class="modal-x" id="modalX" aria-label="Cerrar">×</button>
+    <h2 id="modalTitulo">—</h2>
+    <div id="modalCuerpo"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- Las librerías del PDF van dentro del repo: la app arma el PDF aunque no haya internet -->
+<script src="vendor/jspdf.umd.min.js"></script>
+<script src="vendor/jspdf.autotable.min.js"></script>
+<script src="version.js"></script>
+<script src="marca.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
